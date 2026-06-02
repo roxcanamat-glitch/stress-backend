@@ -5,6 +5,8 @@ const createToken = require("../utils/createToken")
 
 // register
 const register = async(req, res) => {
+   console.log("BODY RECIBIDO:", req.body);
+   
     try {
         const { nombre, email, password} = req.body;
 
