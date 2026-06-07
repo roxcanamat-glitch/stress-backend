@@ -30,6 +30,7 @@ const createMood = async (req, res) => {
         const mood = await Mood.create({
             user: req.user.id,
             ansiedad,
+            estres: 0,
             estadoAnimo,
             notas
         });
