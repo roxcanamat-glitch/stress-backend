@@ -1,23 +1,26 @@
-const jwt = require('jsonwebtoken')
-
 const auth = (req, res, next) => {
     try {
         const header = req.headers.authorization || "";
-        const [type, token ] = header.split(" ") // "Bearer token"
+        console.log("AUTH HEADER:", header); // 👈 AÑADE ESTO
 
-        // si no hay Bearer o no hay token
-         if (type !== "Bearer" || !token) {
-            return res.status(401).json({ error: "Token no proporcionado" })
-         }
+        const [type, token] = header.split(" ");
 
-         // sy hay token ---> verificamos el token
-         const verifyToken = jwt.verify(token, process.env.JWT_SECRET)
-         req.user = { id: verifyToken.id }
+        console.log("TYPE:", type);
+        console.log("TOKEN:", token);
 
-        next() // pasamos a las rutas
+        if (type !== "Bearer" || !token) {
+            return res.status(401).json({ error: "Token no proporcionado" });
+        }
+
+        const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
+
+        console.log("DECODED TOKEN:", verifyToken); // 👈 IMPORTANTE
+
+        req.user = { id: verifyToken.id };
+
+        next();
     } catch (err) {
-        return res.status(401).json({ error: "Token no válido o expirado"})
+        console.log("AUTH ERROR:", err); // 👈 IMPORTANTE
+        return res.status(401).json({ error: "Token no válido o expirado" });
     }
-}
-
-module.exports = auth;
+};
