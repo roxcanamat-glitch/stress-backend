@@ -4,6 +4,9 @@ const router = express.Router()
 const { register, login, getProfile } = require('../controllers/authController')
 const auth = require('../middlewares/authMiddleware')
 
+console.log("AUTH:", typeof auth)
+console.log("GETPROFILE:", typeof getProfile)
+
 // rutas públicas
 router.post('/register', register)
 router.post('/login', login)

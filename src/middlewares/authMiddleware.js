@@ -24,3 +24,5 @@ const auth = (req, res, next) => {
         return res.status(401).json({ error: "Token no válido o expirado" });
     }
 };
+
+module.exports = auth;

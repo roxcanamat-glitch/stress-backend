@@ -17,9 +17,9 @@ const moodSchema = new mongoose.Schema(
 
     estres: {
         type: Number,
-        required: true,
+        required: false,
         min: 0,
-        max: 10
+        max: 24
     },
 
     estadoAnimo: {
