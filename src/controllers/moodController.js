@@ -14,6 +14,12 @@ const createMood = async (req, res) => {
         console.log("🧠 BODY RECIBIDO:", req.body);
         console.log("👤 USER:", req.user);
 
+console.log("BODY FINAL:", req.body);
+console.log("TIPOS:", {
+  ansiedad: typeof req.body.ansiedad,
+  estadoAnimo: req.body.estadoAnimo
+});
+
         if (!req.user || !req.user.id) {
             return res.status(401).json({ error: "Usuario no autenticado" });
         }
@@ -30,7 +36,7 @@ const createMood = async (req, res) => {
         const mood = await Mood.create({
             user: req.user.id,
             ansiedad,
-            estres: 0,
+           /* estres: 0, */
             estadoAnimo,
             notas
         });
