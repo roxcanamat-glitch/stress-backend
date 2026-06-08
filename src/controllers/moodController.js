@@ -2,11 +2,23 @@ const Mood = require('../models/moodModel');
 const validateMood = require('../validators/moodValidator');
 
 // CREATE
+// const createMood = async (req, res) => {
+//     try {
+//         const error = validateMood(req.body);
+
+//         if (error) {
+//             return res.status(400).json({ error });
+//         }
+
 const createMood = async (req, res) => {
     try {
+
+        console.log("BODY RECIBIDO:", req.body);
+
         const error = validateMood(req.body);
 
         if (error) {
+            console.log("ERROR VALIDATOR:", error);
             return res.status(400).json({ error });
         }
 
