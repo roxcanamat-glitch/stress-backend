@@ -6,18 +6,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 👇 RUTA RAÍZ (NUEVA)
+// Ruta raíz
 app.get('/', (req, res) => {
-  res.json({
-    message: 'Stress API funcionando 🚀'
-  });
+    res.json({ message: 'Stress API funcionando 🚀' });
 });
 
-// AUTH
+// Rutas de autenticación
 const authRoutes = require('./routes/authRoutes');
 app.use('/api/auth', authRoutes);
 
-// MOODS
+// Rutas de moods
 const moodRoutes = require('./routes/moodRoutes');
 app.use('/api/moods', moodRoutes);
 

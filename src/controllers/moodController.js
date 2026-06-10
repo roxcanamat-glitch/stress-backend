@@ -2,35 +2,13 @@ const Mood = require('../models/moodModel');
 const validateMood = require('../validators/moodValidator');
 
 // CREATE
-// const createMood = async (req, res) => {
-//     try {
-//         const error = validateMood(req.body);
-
-//         if (error) {
-//             return res.status(400).json({ error });
-//         }
-
 const createMood = async (req, res) => {
     try {
-
-        console.log("BODY RECIBIDO:", req.body);
-
         const error = validateMood(req.body);
 
         if (error) {
-            console.log("ERROR VALIDATOR:", error);
             return res.status(400).json({ error });
         }
-
-        // 🔥 AQUÍ AÑADES DEBUG IMPORTANTE
-        console.log("🧠 BODY RECIBIDO:", req.body);
-        console.log("👤 USER:", req.user);
-
-console.log("BODY FINAL:", req.body);
-console.log("TIPOS:", {
-  ansiedad: typeof req.body.ansiedad,
-  estadoAnimo: req.body.estadoAnimo
-});
 
         if (!req.user || !req.user.id) {
             return res.status(401).json({ error: "Usuario no autenticado" });
@@ -38,17 +16,9 @@ console.log("TIPOS:", {
 
         const { ansiedad, estadoAnimo, notas } = req.body;
 
-        // 🔥 AQUÍ TAMBIÉN ES BUENO VERLO
-        console.log("📊 VALORES EXTRAÍDOS:", {
-            ansiedad,
-            estadoAnimo,
-            notas
-        });
-
         const mood = await Mood.create({
             user: req.user.id,
             ansiedad,
-           /* estres: 0, */
             estadoAnimo,
             notas
         });
@@ -56,10 +26,6 @@ console.log("TIPOS:", {
         return res.status(201).json(mood);
 
     } catch (err) {
-        // 🔥 ESTE ES EL MÁS IMPORTANTE
-        console.log("🔥 ERROR CREATE MOOD:", err);
-        console.log("STACK:", err.stack);
-
         return res.status(500).json({ error: err.message });
     }
 };

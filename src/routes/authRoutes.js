@@ -1,17 +1,14 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
-const { register, login, getProfile } = require('../controllers/authController')
-const auth = require('../middlewares/authMiddleware')
+const { register, login, getProfile } = require('../controllers/authController');
+const auth = require('../middlewares/authMiddleware');
 
-console.log("AUTH:", typeof auth)
-console.log("GETPROFILE:", typeof getProfile)
+// Rutas públicas
+router.post('/register', register);
+router.post('/login', login);
 
-// rutas públicas
-router.post('/register', register)
-router.post('/login', login)
+// Rutas protegidas
+router.get('/profile', auth, getProfile);
 
-// rutas protegidas
-router.get('/profile', auth, getProfile)
-
-module.exports = router
+module.exports = router;
